@@ -15,11 +15,11 @@ export class Topic extends React.Component {
                 <View style={style.buttonContainer}>
                     <Text style={style.voteSum}>  vote sum: {this.props.upvote - this.props.downvote}</Text>
                     <Button
-                        title="Vote Up"
+                        title='Vote Up'
                         onPress={() => this.props.upvoteFn(this.props.index)}
                      /> 
                      <Button
-                        title="Vote Down"
+                        title='Vote Down'
                         onPress={() => this.props.downvoteFn(this.props.index)}
                      />
                 </View>
@@ -31,12 +31,12 @@ export class Topic extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#e3b5bc",
+        backgroundColor: '#e3b5bc',
         marginBottom: 3,
     },
     topic: {
         fontSize: 18,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginBottom: 10
     },
     propertyContainer: {
@@ -52,6 +52,6 @@ const style = StyleSheet.create({
     },
     voteSum: {
         fontSize: 15,
-        fontWeight: "bold"
+        fontWeight: 'bold'
     }
 });
