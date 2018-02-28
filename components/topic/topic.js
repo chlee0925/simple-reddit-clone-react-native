@@ -13,7 +13,6 @@ export class Topic extends React.Component {
                 </View>
                 
                 <View style={style.buttonContainer}>
-                    <Text style={style.voteSum}>  vote sum: {this.props.upvote - this.props.downvote}</Text>
                     <Button
                         title='Vote Up'
                         onPress={() => this.props.upvoteFn(this.props.index)}
@@ -49,9 +48,5 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
-    },
-    voteSum: {
-        fontSize: 15,
-        fontWeight: 'bold'
     }
 });
