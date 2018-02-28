@@ -16,7 +16,8 @@
     "test": "node node_modules/jest/bin/jest.js"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "verbose": true
   },
   "dependencies": {
     "expo": "^25.0.0",
