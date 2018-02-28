@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Keyboard } from 'react-native';
 
 export class CreateTopicScreen extends React.Component {
     constructor(props) {
@@ -17,6 +17,7 @@ export class CreateTopicScreen extends React.Component {
                     onChangeText={(text) => this.setState({text})}
                 />
                 <Button title='Create Topic' onPress={() => {
+                    Keyboard.dismiss();
                     params.createTopic(this.state.text);
                     this.props.navigation.goBack();
                 }} />
