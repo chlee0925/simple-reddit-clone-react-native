@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
+/**
+ * Component that renders a topic. User can vote up or vote down on the topic.
+ */
 export class Topic extends React.Component {
     render() {
         return (

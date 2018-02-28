@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Keyboard } from 'react-native';
 
+/**
+ * Screen where user can create new topic
+ */
 export class CreateTopicScreen extends React.Component {
     constructor(props) {
         super(props);
