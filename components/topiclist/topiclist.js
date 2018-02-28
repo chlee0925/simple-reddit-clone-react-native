@@ -14,18 +14,34 @@ export class TopicListScreen extends React.Component {
         this.state = {data: sampleData, newKey: 4}; // populate with sample data
     }
 
+    upvote(index) {
+        let data = this.state.data;
+        data[index].upvote += 1;
+        this.setState({data: data});
+    }
+
+    downvote(index) {
+        let data = this.state.data;
+        data[index].downvote += 1;
+        this.setState({data: data});
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
                 <FlatList
                     data={this.state.data}
-                    renderItem={({item, index}) => 
+                    extraData={this.state}
+                    renderItem={({ item, index }) => 
                         <Topic 
                             index={index}
                             topic={item.topic}
                             upvote={item.upvote}
                             downvote={item.downvote}
-                        />}
+                            upvoteFn={this.upvote.bind(this)}
+                            downvoteFn={this.downvote.bind(this)}
+                        />
+                    }
                  />
             </View>
         )
