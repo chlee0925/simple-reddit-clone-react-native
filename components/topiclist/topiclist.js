@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, FlatList, Button } from 'react-native';
 import { Topic } from '../topic/topic.js';
 
-const numOfTopTopics = 4; // Number of top topics to show
+const numOfTopTopics = 20; // Number of top topics to show
 
 // Sample topic data to populate initially
 let sampleData = [
