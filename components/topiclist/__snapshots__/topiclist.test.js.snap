@@ -11,7 +11,7 @@ exports[`renders TopicListScreen Component 1`] = `
   <View
     style={
       Object {
-        "marginBottom": 10,
+        "marginBottom": 5,
       }
     }
   >
@@ -150,9 +150,13 @@ exports[`renders TopicListScreen Component 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#e3b5bc",
+              "backgroundColor": "#f2f2f2",
+              "borderBottomWidth": 2,
+              "borderColor": "#cccccc",
+              "borderTopWidth": 1,
               "flex": 1,
-              "marginBottom": 3,
+              "marginBottom": 5,
+              "padding": 5,
             }
           }
         >
@@ -209,6 +213,7 @@ exports[`renders TopicListScreen Component 1`] = `
           <View
             style={
               Object {
+                "alignItems": "center",
                 "flex": 1,
                 "flexDirection": "row",
                 "justifyContent": "space-between",
@@ -271,6 +276,20 @@ exports[`renders TopicListScreen Component 1`] = `
                 </Text>
               </View>
             </View>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 13,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Vote Sum: 
+              1
+            </Text>
             <View
               accessibilityComponentType="button"
               accessibilityLabel={undefined}
@@ -337,9 +356,13 @@ exports[`renders TopicListScreen Component 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#e3b5bc",
+              "backgroundColor": "#f2f2f2",
+              "borderBottomWidth": 2,
+              "borderColor": "#cccccc",
+              "borderTopWidth": 1,
               "flex": 1,
-              "marginBottom": 3,
+              "marginBottom": 5,
+              "padding": 5,
             }
           }
         >
@@ -396,6 +419,7 @@ exports[`renders TopicListScreen Component 1`] = `
           <View
             style={
               Object {
+                "alignItems": "center",
                 "flex": 1,
                 "flexDirection": "row",
                 "justifyContent": "space-between",
@@ -458,6 +482,20 @@ exports[`renders TopicListScreen Component 1`] = `
                 </Text>
               </View>
             </View>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 13,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Vote Sum: 
+              -3
+            </Text>
             <View
               accessibilityComponentType="button"
               accessibilityLabel={undefined}
@@ -524,9 +562,13 @@ exports[`renders TopicListScreen Component 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#e3b5bc",
+              "backgroundColor": "#f2f2f2",
+              "borderBottomWidth": 2,
+              "borderColor": "#cccccc",
+              "borderTopWidth": 1,
               "flex": 1,
-              "marginBottom": 3,
+              "marginBottom": 5,
+              "padding": 5,
             }
           }
         >
@@ -583,6 +625,7 @@ exports[`renders TopicListScreen Component 1`] = `
           <View
             style={
               Object {
+                "alignItems": "center",
                 "flex": 1,
                 "flexDirection": "row",
                 "justifyContent": "space-between",
@@ -645,6 +688,20 @@ exports[`renders TopicListScreen Component 1`] = `
                 </Text>
               </View>
             </View>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 13,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Vote Sum: 
+              0
+            </Text>
             <View
               accessibilityComponentType="button"
               accessibilityLabel={undefined}

@@ -23,6 +23,10 @@ let upvoteCompareFn = function (a, b) { return b.upvote - a.upvote; };
  * Screen displaying current top topics.
  */
 export class TopicListScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Topics',
+    };
+
     constructor(props) {
         super(props);
         sampleData.sort(upvoteCompareFn);
@@ -83,7 +87,7 @@ export class TopicListScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ marginBottom: 10 }}>
+                <View style={{ marginBottom: 5 }}>
                     <Button
                         title='+ Create a new topic'
                         onPress={() => this.props.navigation.navigate('CreateTopic', {

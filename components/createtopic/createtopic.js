@@ -5,6 +5,10 @@ import { View, Text, TextInput, Button, StyleSheet, Keyboard } from 'react-nativ
  * Screen where user can create new topic
  */
 export class CreateTopicScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Create a new topic',
+    };
+
     constructor(props) {
         super(props);
         this.state = {text: ''};
@@ -14,7 +18,7 @@ export class CreateTopicScreen extends React.Component {
         const { params } = this.props.navigation.state;
         return (
             <View>
-                <Text style={style.header}>Create a new topic!</Text>
+                <Text style={style.header}>Write your own topic!</Text>
                 <TextInput style={style.textInput}
                     placeholder='Type your new topic'
                     onChangeText={(text) => this.setState({text})}
@@ -38,7 +42,8 @@ const style = StyleSheet.create({
     },
     textInput: {
         borderWidth: 1,
-        height: 50,
+        borderColor: 'gray',
+        height: 100,
         margin: 10
     }
 });
