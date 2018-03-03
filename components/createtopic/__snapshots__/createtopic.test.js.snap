@@ -15,7 +15,7 @@ exports[`renders CreateTopicScreen Component 1`] = `
       }
     }
   >
-    Create a new topic!
+    Write your own topic!
   </Text>
   <TextInput
     allowFontScaling={true}
@@ -23,8 +23,9 @@ exports[`renders CreateTopicScreen Component 1`] = `
     placeholder="Type your new topic"
     style={
       Object {
+        "borderColor": "gray",
         "borderWidth": 1,
-        "height": 50,
+        "height": 100,
         "margin": 10,
       }
     }

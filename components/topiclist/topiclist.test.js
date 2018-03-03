@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopicListScreen } from './topiclist.js';
+import { TopicListScreen, numOfTopTopics } from './topiclist.js';
 
 import renderer from 'react-test-renderer';
 
@@ -10,55 +10,44 @@ it('renders TopicListScreen Component', () => {
     expect(screen.toJSON()).toMatchSnapshot();
 
     const instance = screen.getInstance();
-    expect(instance.state.data.length).toEqual(3);
-    expect(instance.state.data[0].key).toEqual(2);
-    expect(instance.state.data[1].key).toEqual(3);
-    expect(instance.state.data[2].key).toEqual(1);
+    expect(instance.state.topTopics.length).toEqual(3);
+    expect(instance.state.topTopics[0].key).toEqual(2);
+    expect(instance.state.topTopics[1].key).toEqual(1);
+    expect(instance.state.topTopics[2].key).toEqual(3);
 });
 
 it('test upvote', () => {
-    const instance = renderer.create(
+    const screen = renderer.create(
         <TopicListScreen />
-    ).getInstance();
-
-    expect(instance.state.data[1].key).toEqual(3);
-    instance.upvote(1);
-    expect(instance.state.data[1].key).toEqual(3);
-    instance.upvote(1);
-    expect(instance.state.data[1].key).toEqual(2);
-    expect(instance.state.data[0]).toEqual(
-        {
-            downvote: 4,
-            key: 3,
-            topic: 'Best ways to bargain with sellers in Carousell',
-            upvote: 3,
-        }
     );
+    const instance = screen.getInstance();
+
+    for (i = 0; i < 2; i++) {
+        instance.upvote(1);
+        expect(screen.toJSON()).toMatchSnapshot();
+    }
 });
 
 it('test downvote', () => {
-    const instance = renderer.create(
+    const screen = renderer.create(
         <TopicListScreen />
-    ).getInstance();
+    );
+    const instance = screen.getInstance();
 
-    const before = instance.state.data[0].downvote;
-    instance.downvote(0);
-    expect(instance.state.data[0].downvote).toEqual(before + 1);
+    for (i = 0; i < 3; i++) {
+        instance.downvote(1);
+        expect(screen.toJSON()).toMatchSnapshot();
+    }
 });
 
 it('test createTopic', () => {
-    const instance = renderer.create(
+    const screen = renderer.create(
         <TopicListScreen />
-    ).getInstance();
-
-    instance.createTopic('test topic');
-    expect(instance.state.data.length).toEqual(4);
-    expect(instance.state.data[3]).toEqual(
-        {
-            downvote: 0,
-            key: 4,
-            topic: 'test topic',
-            upvote: 0,
-        }
     );
+    const instance = screen.getInstance();
+
+    for (i = 0; i < (numOfTopTopics + 1); i++) {
+        instance.createTopic('test topic');
+        expect(screen.toJSON()).toMatchSnapshot();
+    }
 });

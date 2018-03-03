@@ -1,89 +1,111 @@
 import React from 'react';
 import { Text, View, FlatList, Button } from 'react-native';
 import { Topic } from '../topic/topic.js';
+import buckets from 'buckets-js';
 
-const numOfTopTopics = 20; // Number of top topics to show
+export const numOfTopTopics = 20; // Number of top topics to show
 
 // Sample topic data to populate initially
 let sampleData = [
     { key: 1, topic: 'I am looking for good restaurants in town', upvote: 0, downvote: 0 },
     { key: 2, topic: 'Help! I just dropped my phone into the pool.', upvote: 2, downvote: 1 },
-    { key: 3, topic: 'Best ways to bargain with sellers in Carousell', upvote: 1, downvote: 4 },
+    { key: 3, topic: 'Best ways to bargain with sellers in Carousell', upvote: 1, downvote: 2 },
 ];
+
 /**
- * Compare function to rank topics. Only 'upvote' property is considered as per requirements. 
- * Ranked in descending order.
+ * Compare function to rank topics. vote sum (upvote - downvote) is considered to rank topics in descending order.
  * @param {object} a Topic object 1 to compare
  * @param {object} b Topic object 2 to compare
  * @returns non-positive number if in order or positive number if out of order
  */
-let upvoteCompareFn = function (a, b) { return b.upvote - a.upvote; };
+let voteCompareFn = function (a, b) { return (b.upvote - b.downvote) - (a.upvote - a.downvote); };
 
 /**
  * Screen displaying current top topics.
  */
 export class TopicListScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Topics',
+    };
+
     constructor(props) {
         super(props);
-        sampleData.sort(upvoteCompareFn);
-        this.state = { 
-            data: sampleData, 
+        sampleData.sort(voteCompareFn);
+
+        let topTopics = sampleData.slice(0, numOfTopTopics);
+        let otherTopics = new buckets.Heap(voteCompareFn);
+        if (sampleData.length > numOfTopTopics) {
+            sampleData.slice(numOfTopTopics).forEach((value) => otherTopics.add(value));
+        };
+
+        // populate with sample data
+        this.state = {
+            topTopics: topTopics,
+            otherTopics: otherTopics, 
             newKey: (sampleData.length + 1)
-        }; // populate with sample data
+        };
     }
 
     /**
      * callback function for 'Topic' component to invoke when user presses 'upvote' button.
-     * @param {number} index index of current topic in the data array.
+     * @param {number} index index of current topic in the topTopics array.
      */
     upvote(index) {
-        let data = this.state.data;
-        data[index].upvote += 1;
-        this._bubbleUpTopic(data, index);
-        this.setState({ data: data });
-    }
-
-    /**
-     * bubble up the topic in ranked data array. When a topic's upvote increases, this function
-     * should be invoked to ensure the correct rank order of topics.
-     * @param {object} data data array that holds topics
-     * @param {number} index index of topic whose upvote has increased.
-     */
-    _bubbleUpTopic(data, index) {
-        for (i = index; i > 0 && (upvoteCompareFn(data[i - 1], data[i]) > 0); i--) {                
-            let temp = data[i - 1];
-            data[i - 1] = data[i];
-            data[i] = temp;
-        }
+        let topTopics = this.state.topTopics;
+        topTopics[index].upvote += 1;
+        topTopics.sort(voteCompareFn);
+        this.setState({ topTopics: topTopics });
     }
 
     /**
      * callback function for 'Topic' component to invoke when user presses 'downvote' button.
-     * @param {number} index index of current topic in the data array.
+     * @param {number} index index of current topic in the topTopics array.
      */
     downvote(index) {
-        let data = this.state.data;
-        data[index].downvote += 1;
-        this.setState({ data: data });
+        let topTopics = this.state.topTopics;
+        let otherTopics = this.state.otherTopics;
+        topTopics[index].downvote += 1;
+        topTopics.sort(voteCompareFn);
+        
+        // If the number of votes of the last topic in 'topTopics' is less than the first topic in 'otherTopics', swap two topics.
+        if (!otherTopics.isEmpty()) {
+            let firstInOtherTopics = otherTopics.peek();
+            if (voteCompareFn(topTopics[topTopics.length - 1], firstInOtherTopics) > 0) {
+                firstInOtherTopics = otherTopics.removeRoot();
+                otherTopics.add(topTopics[topTopics.length - 1]);
+                topTopics[topTopics.length - 1] = firstInOtherTopics;
+            }
+        }
+
+        this.setState({ topTopics: topTopics, otherTopics: otherTopics});
     }
 
     /**
-     * callback function for 'CreateTopicScreen' to invoke to create a new topic. New topic is appended
-     * to the data array that holds topics.
+     * callback function for 'CreateTopicScreen' to invoke to create a new topic.
      * @param {string} topic topic text user enters
      */
     createTopic(topic) {
         if (!topic) return;
-        let data = this.state.data;
+        let topTopics = this.state.topTopics;
         let key = this.state.newKey;
-        data.push({ key: key, topic: topic, upvote: 0, downvote: 0 });
-        this.setState({ data: data, newKey: ++key })
+        topTopics.push({ key: key, topic: topic, upvote: 0, downvote: 0 });
+        key += 1;
+        topTopics.sort(voteCompareFn);
+
+        // If topTopics array 'overflows', move the last into 'otherTopics'
+        if (topTopics.length > numOfTopTopics) {
+            let otherTopics = this.state.otherTopics;
+            otherTopics.add(topTopics.pop());
+            this.setState({ topTopics: topTopics, newKey: key, otherTopics: otherTopics });    
+        } else {
+            this.setState({ topTopics: topTopics, newKey: key });
+        }
     }
 
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={{ marginBottom: 10 }}>
+                <View style={{ marginBottom: 5 }}>
                     <Button
                         title='+ Create a new topic'
                         onPress={() => this.props.navigation.navigate('CreateTopic', {
@@ -92,7 +114,7 @@ export class TopicListScreen extends React.Component {
                     />
                 </View>
                 <FlatList
-                    data={this.state.data.slice(0, numOfTopTopics)}
+                    data={this.state.topTopics}
                     extraData={this.state}
                     renderItem={({ item, index }) =>
                         <Topic

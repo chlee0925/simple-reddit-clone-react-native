@@ -19,7 +19,8 @@ export class Topic extends React.Component {
                     <Button
                         title='Vote Up'
                         onPress={() => this.props.upvoteFn(this.props.index)}
-                     /> 
+                     />
+                     <Text style={style.voteSum}>Vote Sum: {this.props.upvote - this.props.downvote}</Text>
                      <Button
                         title='Vote Down'
                         onPress={() => this.props.downvoteFn(this.props.index)}
@@ -33,8 +34,12 @@ export class Topic extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#e3b5bc',
-        marginBottom: 3,
+        backgroundColor: '#f2f2f2',
+        padding: 5,
+        marginBottom: 5,
+        borderTopWidth: 1,
+        borderBottomWidth: 2,
+        borderColor: '#cccccc'
     },
     topic: {
         fontSize: 18,
@@ -50,6 +55,11 @@ const style = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    voteSum: {
+        fontSize: 13,
+        fontWeight: 'bold'
     }
 });

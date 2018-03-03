@@ -2,7 +2,7 @@
 
 A super simple reddit clone exercise written in React Native. Quick summary of features are:
 
-* View a list of top topics (top 20 topics in terms of 'upvotes' are featured)
+* View a list of top topics (top 20 in terms of votes)
 * Create a new topic.
 * Vote up or down on topics
 
@@ -57,10 +57,11 @@ Follow the official instruction [here](https://github.com/react-community/create
 This app is a simple exercise using React Native to satisfy a small set of requirements. Some notes are:
 
 * Topics are stored in memory.
-* Topics are ranked solely based on the number of upvotes.
-  * The upvote property can only increase and increase by one per action. Hence the topics are stored in a linear array and upon an upvote action, the topic is considered to swap with previous topics (or 'bubble up').
-  * The number of downvotes does not affect the rank of a topic.
-  * A new topic is ranked the last as it has zero upvote initially.
+* There are two data structures for storing topics.
+  * linear array: stores top 20 topics.
+  * binary heap: stores the rest of topics.
+* Upon upvote, topics are sorted within the linear array.
+* Upon downvote, the bottom topic in the linear array (top 20) might get swapped with the first topic in the binary heap.
 
 ## Troubleshooting (Taken from the [official guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#troubleshooting))
 
